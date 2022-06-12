@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x x",
+    " y ",
+    "x x"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:gunpowder"
+    },
+    "y": {
+      "item": "bde:tnt_no_gunpowder"
+    }
+  },
+  "result": {
+    "item": "minecraft:tnt"
+  }
+}

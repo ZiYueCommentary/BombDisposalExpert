@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " y ",
+    "y y",
+    " y "
+  ],
+  "key": {
+    "y": {
+      "item": "minecraft:sand"
+    }
+  },
+  "result": {
+    "item": "bde:tnt_no_gunpowder"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ziyue.bde.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "FinishInitializationMixin",
+    "PrimedTntMixin",
+    "TntBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
