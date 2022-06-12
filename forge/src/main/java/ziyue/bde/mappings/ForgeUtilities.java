@@ -1,6 +1,6 @@
 package ziyue.bde.mappings;
 
-import me.shedaniel.architectury.platform.forge.EventBuses;
+import dev.architectury.platform.forge.EventBuses;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ForgeUtilities
