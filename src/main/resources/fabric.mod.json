@@ -1,0 +1,32 @@
+{
+    "schemaVersion": 1,
+    "id": "bde",
+    "version": "${version}",
+
+    "name": "Bomb Disposal Expert",
+    "description": "A small mod that allows you bomb disposal.",
+    "authors": [
+        "ZiYueCommentary"
+    ],
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/bomb-disposal-expert",
+        "sources": "https://github.com/ZiYueCommentary/BombDisposalExpert",
+        "issues": "https://github.com/ZiYueCommentary/BombDisposalExpert/issues"
+    },
+
+    "license": "MIT",
+    "icon": "assets/bde/icon.png",
+
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "ziyue.bde.BombDisposalExpert"
+        ]
+    },
+
+    "depends": {
+        "fabricloader": ">=0.14.14",
+        "minecraft": "~1.19",
+        "java": ">=17"
+    }
+}

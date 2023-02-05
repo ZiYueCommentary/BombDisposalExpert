@@ -31,4 +31,10 @@ bin/
 # fabric
 
 run/
-.architectury-transformer
+
+# java
+
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr
