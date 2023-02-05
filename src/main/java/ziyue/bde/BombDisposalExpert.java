@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -12,15 +13,16 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 
 public class BombDisposalExpert implements ModInitializer
 {
@@ -29,8 +31,10 @@ public class BombDisposalExpert implements ModInitializer
 
     @Override
     public void onInitialize() {
-        Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "tnt_no_gunpowder"), TNT_NO_GUNPOWDER);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tnt_no_gunpowder"), new BlockItem(TNT_NO_GUNPOWDER, new FabricItemSettings().group(ItemGroup.REDSTONE)));
+        Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "tnt_no_gunpowder"), TNT_NO_GUNPOWDER);
+        Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tnt_no_gunpowder"), new BlockItem(TNT_NO_GUNPOWDER, new FabricItemSettings()));
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content -> content.add(TNT_NO_GUNPOWDER));
 
         // TntBlock
         UseBlockCallback.EVENT.register((player, world, hand, blockHitResult) -> {
