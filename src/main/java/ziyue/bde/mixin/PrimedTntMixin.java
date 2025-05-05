@@ -13,6 +13,8 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import ziyue.bde.BombDisposalExpert;
 
+import static net.minecraft.world.entity.LivingEntity.getSlotForHand;
+
 /**
  * @author ZiYueCommentary
  * @since 1.0.0
@@ -29,7 +31,7 @@ public abstract class PrimedTntMixin extends Entity implements TraceableEntity
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         if (player.isHolding(Items.SHEARS)) {
-            player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            player.getItemInHand(hand).hurtAndBreak(1, player, getSlotForHand(hand));
             this.spawnAtLocation(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER.get()));
             this.kill();
             return InteractionResult.SUCCESS;

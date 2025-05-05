@@ -54,8 +54,8 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
     private static final EntityDataAccessor<Boolean> DATA_NEUTRALIZED = SynchedEntityData.defineId(CreeperMixin.class, EntityDataSerializers.BOOLEAN);
 
     @Inject(at = @At("TAIL"), method = "defineSynchedData")
-    private void afterDefineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_NEUTRALIZED, false);
+    private void afterDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DATA_NEUTRALIZED, false);
     }
 
     @Inject(at = @At("TAIL"), method = "addAdditionalSaveData")
@@ -93,7 +93,7 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
         if (player.isHolding(Items.SHEARS)) {
             this.playSound(SoundEvents.SHEEP_SHEAR);
             this.spawnAtLocation(new ItemStack(Items.GUNPOWDER));
-            itemstack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            itemstack.hurtAndBreak(1, player, getSlotForHand(hand));
             this.setTarget(null);
             this.entityData.set(DATA_NEUTRALIZED, true);
             this.entityData.set(DATA_SWELL_DIR, -1);
