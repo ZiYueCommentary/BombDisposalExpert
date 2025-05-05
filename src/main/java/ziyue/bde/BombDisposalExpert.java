@@ -1,0 +1,40 @@
+package ziyue.bde;
+
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+/**
+ * @author ZiYueCommentary
+ * @since 1.0.0
+ */
+
+public class BombDisposalExpert implements ModInitializer
+{
+    public static final String MOD_ID = "bde";
+    public static final Logger LOGGER = LogManager.getLogger();
+
+    public static final Block TNT_NO_GUNPOWDER = new Block(FabricBlockSettings.copyOf(AbstractBlock.Settings.copy(Blocks.TNT)));
+
+    @Override
+    public void onInitialize() {
+        LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
+
+        Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "tnt_no_gunpowder"), TNT_NO_GUNPOWDER);
+        Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "tnt_no_gunpowder"), new BlockItem(TNT_NO_GUNPOWDER, new Item.Settings()));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content -> content.add(TNT_NO_GUNPOWDER));
+        FlammableBlockRegistry.getDefaultInstance().add(TNT_NO_GUNPOWDER, 10, 5);
+    }
+}

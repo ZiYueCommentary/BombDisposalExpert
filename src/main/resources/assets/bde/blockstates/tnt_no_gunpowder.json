@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "bde:block/tnt_no_gunpowder"
+		}
+	}
+}

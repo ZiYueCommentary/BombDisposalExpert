@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "ziyue.bde.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"CreeperEntityMixin",
+		"TntBlockMixin",
+		"TntEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"refmap": "bde.refmap.json"
+}
