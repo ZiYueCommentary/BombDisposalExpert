@@ -28,16 +28,14 @@ import org.apache.logging.log4j.Logger;
  */
 
 @Mod(BombDisposalExpert.MOD_ID)
-public class BombDisposalExpert
-{
+public class BombDisposalExpert {
     public static final String MOD_ID = "bde";
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
-    public static final RegistryObject<Block> TNT_NO_GUNPOWDER = BLOCKS.register("tnt_no_gunpowder", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT).setId(BLOCKS.key("tnt_no_gunpowder")))
-    {
+    public static final RegistryObject<Block> TNT_NO_GUNPOWDER = BLOCKS.register("tnt_no_gunpowder", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT)) {
         @Override
         public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
             return true;
@@ -53,9 +51,10 @@ public class BombDisposalExpert
             return 5;
         }
     });
-    public static final RegistryObject<Item> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties().setId(ITEMS.key("tnt_no_gunpowder"))));
+    public static final RegistryObject<Item> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties()));
 
-    public BombDisposalExpert(FMLJavaModLoadingContext context) {
+    public BombDisposalExpert(FMLJavaModLoadingContext context)
+    {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
         IEventBus modEventBus = context.getModEventBus();
@@ -68,7 +67,8 @@ public class BombDisposalExpert
         modEventBus.addListener(this::addCreative);
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+    private void addCreative(BuildCreativeModeTabContentsEvent event)
+    {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS)
             event.accept(TNT_NO_GUNPOWDER_ITEM);
     }

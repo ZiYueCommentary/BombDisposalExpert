@@ -7,7 +7,9 @@
 		" y "
 	],
 	"key": {
-		"y": "minecraft:sand"
+		"y": {
+			"item": "minecraft:sand"
+		}
 	},
 	"result": {
 		"id": "bde:tnt_no_gunpowder",
