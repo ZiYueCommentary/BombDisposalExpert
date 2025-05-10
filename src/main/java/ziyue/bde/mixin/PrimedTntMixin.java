@@ -4,7 +4,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +18,7 @@ import ziyue.bde.BombDisposalExpert;
  */
 
 @Mixin(PrimedTnt.class)
-public abstract class PrimedTntMixin extends Entity implements TraceableEntity
+public abstract class PrimedTntMixin extends Entity
 {
     public PrimedTntMixin(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);

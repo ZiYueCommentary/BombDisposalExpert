@@ -36,7 +36,7 @@ public abstract class TntBlockMixin extends Block
     private void beforeOnUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result, CallbackInfoReturnable<InteractionResult> cir) {
         if (player.isHolding(Items.SHEARS)) {
             level.setBlock(pos, BombDisposalExpert.TNT_NO_GUNPOWDER.get().defaultBlockState(), 11);
-            level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS);
+            level.playSound(player, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1F, 1F);
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, new ItemStack(Items.GUNPOWDER)));
             player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             cir.setReturnValue(InteractionResult.SUCCESS);
