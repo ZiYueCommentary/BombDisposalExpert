@@ -26,7 +26,7 @@ public class BombDisposalExpert implements ModInitializer
     public static final String MOD_ID = "bde";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final Block TNT_NO_GUNPOWDER = new Block(FabricBlockSettings.copyOf(AbstractBlock.Settings.copy(Blocks.TNT)));
+    public static final Block TNT_NO_GUNPOWDER = new Block(AbstractBlock.Settings.copy(Blocks.TNT));
 
     @Override
     public void onInitialize() {

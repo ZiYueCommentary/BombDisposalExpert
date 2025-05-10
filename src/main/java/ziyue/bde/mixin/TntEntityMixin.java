@@ -1,9 +1,6 @@
 package ziyue.bde.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Ownable;
-import net.minecraft.entity.TntEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -12,6 +9,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import ziyue.bde.BombDisposalExpert;
+
+import static net.minecraft.entity.LivingEntity.getSlotForHand;
 
 /**
  * @author ZiYueCommentary
@@ -29,7 +28,7 @@ public abstract class TntEntityMixin extends Entity implements Ownable
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
         if (player.isHolding(Items.SHEARS)) {
-            player.getStackInHand(hand).damage(1, player, p -> p.sendToolBreakStatus(hand));
+            player.getStackInHand(hand).damage(1, player, getSlotForHand(hand));
             this.dropStack(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER));
             this.kill();
             return ActionResult.SUCCESS;

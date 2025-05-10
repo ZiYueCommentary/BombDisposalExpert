@@ -1,8 +1,8 @@
 package ziyue.bde.mixin;
 
-import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SkinOverlayOwner;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -59,8 +59,8 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
     private static final TrackedData<Boolean> NEUTRALIZED = DataTracker.registerData(CreeperEntityMixin.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     @Inject(at = @At("TAIL"), method = "initDataTracker")
-    private void afterInitDataTracker(CallbackInfo ci) {
-        this.dataTracker.startTracking(NEUTRALIZED, false);
+    private void afterInitDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
+        builder.add(NEUTRALIZED, false);
     }
 
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
@@ -98,7 +98,7 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
         if (itemStack.isOf(Items.SHEARS)) {
             this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
             this.dropStack(new ItemStack(Items.GUNPOWDER));
-            itemStack.damage(1, player, p -> p.sendToolBreakStatus(hand));
+            itemStack.damage(1, player, getSlotForHand(hand));
             this.setTarget(null);
             this.dataTracker.set(NEUTRALIZED, true);
             this.dataTracker.set(FUSE_SPEED, -1);
