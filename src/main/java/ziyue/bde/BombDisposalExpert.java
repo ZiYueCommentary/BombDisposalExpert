@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -67,8 +67,9 @@ public class BombDisposalExpert
         modEventBus.addListener(this::addCreative);
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS)
-            event.accept(TNT_NO_GUNPOWDER_ITEM);
+    private void addCreative(CreativeModeTabEvent.BuildContents event) {
+        if (event.getTab() == CreativeModeTabs.REDSTONE_BLOCKS) {
+            event.accept(TNT_NO_GUNPOWDER_ITEM.get());
+        }
     }
 }
