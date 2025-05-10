@@ -48,9 +48,6 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
     @Shadow
     private int currentFuseTime;
 
-    @Shadow
-    public abstract void setTarget(@Nullable LivingEntity target);
-
     protected CreeperEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -85,7 +82,7 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
     private void beforeInteractMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (this.dataTracker.get(NEUTRALIZED)) {
-            if (itemStack.isOf(Items.GUNPOWDER)) {
+            if (itemStack.getItem() == Items.GUNPOWDER) {
                 itemStack.setCount(itemStack.getCount() - 1);
                 this.playSound(SoundEvents.BLOCK_GRASS_PLACE, 1.0F, 1.0F);
                 this.dataTracker.set(NEUTRALIZED, false);
@@ -95,7 +92,7 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
             cir.setReturnValue(ActionResult.PASS);
             return;
         }
-        if (itemStack.isOf(Items.SHEARS)) {
+        if (itemStack.getItem() == Items.SHEARS) {
             this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
             this.dropStack(new ItemStack(Items.GUNPOWDER));
             itemStack.damage(1, player, p -> p.sendToolBreakStatus(hand));
@@ -108,10 +105,11 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "setTarget", cancellable = true)
-    private void beforeSetTarget(LivingEntity target, CallbackInfo ci) {
+    @Override
+    public @Nullable LivingEntity getTarget() {
         if (this.dataTracker.get(NEUTRALIZED)) {
-            if (target instanceof PlayerEntity) ci.cancel();
+            if (super.getTarget() instanceof PlayerEntity) return null;
         }
+        return super.getTarget();
     }
 }
