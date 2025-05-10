@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Creeper.class)
 public abstract class CreeperMixin extends Monster implements PowerableMob
 {
-    @Shadow public abstract void setTarget(@Nullable LivingEntity p_149691_);
+    @Shadow public abstract void setTarget(LivingEntity p_149691_);
 
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_SWELL_DIR;
 
