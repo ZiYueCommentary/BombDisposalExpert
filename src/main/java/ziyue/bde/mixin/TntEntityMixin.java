@@ -4,6 +4,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -29,8 +30,10 @@ public abstract class TntEntityMixin extends Entity implements Ownable
     public ActionResult interact(PlayerEntity player, Hand hand) {
         if (player.isHolding(Items.SHEARS)) {
             player.getStackInHand(hand).damage(1, player, getSlotForHand(hand));
-            this.dropStack(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER));
-            this.kill();
+            if (this.getWorld() instanceof ServerWorld world) {
+                this.dropStack(world, new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER));
+                this.kill(world);
+            }
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;

@@ -2,7 +2,6 @@ package ziyue.bde.mixin;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SkinOverlayOwner;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -12,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 
 @Mixin(CreeperEntity.class)
-public abstract class CreeperEntityMixin extends HostileEntity implements SkinOverlayOwner
+public abstract class CreeperEntityMixin extends HostileEntity
 {
     @Shadow
     @Final
@@ -70,7 +70,7 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
 
     @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt")
     private void afterReadCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        this.dataTracker.set(NEUTRALIZED, nbt.getBoolean("neutralized"));
+        this.dataTracker.set(NEUTRALIZED, nbt.getBoolean("neutralized").orElse(false));
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
@@ -97,7 +97,9 @@ public abstract class CreeperEntityMixin extends HostileEntity implements SkinOv
         }
         if (itemStack.isOf(Items.SHEARS)) {
             this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
-            this.dropStack(new ItemStack(Items.GUNPOWDER));
+            if (this.getWorld() instanceof ServerWorld world) {
+                this.dropStack(world, new ItemStack(Items.GUNPOWDER));
+            }
             itemStack.damage(1, player, getSlotForHand(hand));
             this.setTarget(null);
             this.dataTracker.set(NEUTRALIZED, true);

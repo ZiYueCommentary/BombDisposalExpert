@@ -7,12 +7,8 @@
 		"x x"
 	],
 	"key": {
-		"x": {
-			"item": "minecraft:gunpowder"
-		},
-		"y": {
-			"item": "bde:tnt_no_gunpowder"
-		}
+		"x": "minecraft:gunpowder",
+		"y": "bde:tnt_no_gunpowder"
 	},
 	"result": {
 		"id": "minecraft:tnt",

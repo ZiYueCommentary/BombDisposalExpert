@@ -12,7 +12,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -35,13 +34,13 @@ public abstract class TntBlockMixin extends Block
 	}
 
 	@Inject(at = @At("HEAD"), method = "onUseWithItem", cancellable = true)
-	private void beforeOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir) {
+	private void beforeOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 		if (player.isHolding(Items.SHEARS)) {
 			world.setBlockState(pos, BombDisposalExpert.TNT_NO_GUNPOWDER.getDefaultState());
 			world.playSound(null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS);
 			world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, new ItemStack(Items.GUNPOWDER)));
 			player.getStackInHand(hand).damage(1, player, LivingEntity.getSlotForHand(hand));
-			cir.setReturnValue(ItemActionResult.SUCCESS);
+			cir.setReturnValue(ActionResult.SUCCESS);
 		}
 	}
 }
