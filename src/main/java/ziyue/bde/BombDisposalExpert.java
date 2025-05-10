@@ -53,10 +53,10 @@ public class BombDisposalExpert
     });
     public static final RegistryObject<Item> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
-    public BombDisposalExpert(FMLJavaModLoadingContext context) {
+    public BombDisposalExpert() {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
-        IEventBus modEventBus = context.getModEventBus();
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);

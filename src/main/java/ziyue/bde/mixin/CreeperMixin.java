@@ -82,7 +82,7 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
         if (this.entityData.get(DATA_NEUTRALIZED)) {
             if (itemstack.is(Items.GUNPOWDER)) {
                 itemstack.setCount(itemstack.getCount() - 1);
-                this.playSound(SoundEvents.GRASS_PLACE);
+                this.playSound(SoundEvents.GRASS_PLACE, 1F, 1F);
                 this.entityData.set(DATA_NEUTRALIZED, false);
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -91,7 +91,7 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
             return;
         }
         if (player.isHolding(Items.SHEARS)) {
-            this.playSound(SoundEvents.SHEEP_SHEAR);
+            this.playSound(SoundEvents.SHEEP_SHEAR, 1F, 1F);
             this.spawnAtLocation(new ItemStack(Items.GUNPOWDER));
             itemstack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             this.setTarget(null);
