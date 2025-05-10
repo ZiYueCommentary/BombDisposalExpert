@@ -2,7 +2,6 @@ package ziyue.bde;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -26,7 +25,7 @@ public class BombDisposalExpert implements ModInitializer
     public static final String MOD_ID = "bde";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final Block TNT_NO_GUNPOWDER = new Block(FabricBlockSettings.copyOf(AbstractBlock.Settings.copy(Blocks.TNT)));
+    public static final Block TNT_NO_GUNPOWDER = new Block(AbstractBlock.Settings.copy(Blocks.TNT));
 
     @Override
     public void onInitialize() {
