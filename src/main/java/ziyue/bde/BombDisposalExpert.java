@@ -29,8 +29,8 @@ public class BombDisposalExpert implements ModInitializer
     public void onInitialize() {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
-        Registry.register(Registry.BLOCK, Identifier.of(MOD_ID, "tnt_no_gunpowder"), TNT_NO_GUNPOWDER);
-        Registry.register(Registry.ITEM, Identifier.of(MOD_ID, "tnt_no_gunpowder"), new BlockItem(TNT_NO_GUNPOWDER, new Item.Settings().group(ItemGroup.REDSTONE)));
+        Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "tnt_no_gunpowder"), TNT_NO_GUNPOWDER);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tnt_no_gunpowder"), new BlockItem(TNT_NO_GUNPOWDER, new Item.Settings().group(ItemGroup.REDSTONE)));
         FlammableBlockRegistry.getDefaultInstance().add(TNT_NO_GUNPOWDER, 10, 5);
     }
 }
