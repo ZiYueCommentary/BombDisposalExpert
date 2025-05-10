@@ -1,0 +1,10 @@
+{
+    "compatibilityLevel": "JAVA_8",
+    "package": "ziyue.bde.mixin",
+    "refmap": "refmap.bde.json",
+    "mixins": [
+        "BlockTNTMixin",
+        "EntityCreeperMixin",
+        "EntityTNTPrimedMixin"
+    ]
+}
