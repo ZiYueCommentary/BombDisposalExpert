@@ -2,7 +2,6 @@ package ziyue.bde.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Ownable;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,7 @@ import ziyue.bde.BombDisposalExpert;
  */
 
 @Mixin(TntEntity.class)
-public abstract class TntEntityMixin extends Entity implements Ownable
+public abstract class TntEntityMixin extends Entity
 {
     public TntEntityMixin(EntityType<?> type, World world) {
         super(type, world);
