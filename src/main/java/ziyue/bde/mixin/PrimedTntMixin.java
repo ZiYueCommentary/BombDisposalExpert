@@ -4,6 +4,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +30,7 @@ public abstract class PrimedTntMixin extends Entity implements TraceableEntity
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         if (player.isHolding(Items.SHEARS)) {
-            player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             this.spawnAtLocation(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER.get()));
             this.kill();
             return InteractionResult.SUCCESS;
