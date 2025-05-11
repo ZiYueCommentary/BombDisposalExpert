@@ -10,14 +10,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,10 +29,10 @@ public class BombDisposalExpert
     public static final String MOD_ID = "bde";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(MOD_ID);
 
-    public static final RegistryObject<Block> TNT_NO_GUNPOWDER = BLOCKS.register("tnt_no_gunpowder", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT))
+    public static final DeferredHolder<Block, Block> TNT_NO_GUNPOWDER = BLOCKS.register("tnt_no_gunpowder", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT))
     {
         @Override
         public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -52,23 +49,19 @@ public class BombDisposalExpert
             return 5;
         }
     });
-    public static final RegistryObject<Item> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties()));
+    public static final DeferredHolder<Item, BlockItem> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties()));
 
-    public BombDisposalExpert(FMLJavaModLoadingContext context) {
+    public BombDisposalExpert(IEventBus bus) {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
-        IEventBus modEventBus = context.getModEventBus();
+        BLOCKS.register(bus);
+        ITEMS.register(bus);
 
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-
-        MinecraftForge.EVENT_BUS.register(this);
-
-        modEventBus.addListener(this::addCreative);
+        bus.addListener(this::addCreative);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS)
-            event.accept(TNT_NO_GUNPOWDER_ITEM);
+            event.accept(TNT_NO_GUNPOWDER_ITEM.get());
     }
 }
