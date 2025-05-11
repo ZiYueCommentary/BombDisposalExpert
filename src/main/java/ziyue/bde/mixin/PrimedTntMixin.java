@@ -1,5 +1,6 @@
 package ziyue.bde.mixin;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -31,8 +32,10 @@ public abstract class PrimedTntMixin extends Entity implements TraceableEntity
     public InteractionResult interact(Player player, InteractionHand hand) {
         if (player.isHolding(Items.SHEARS)) {
             player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-            this.spawnAtLocation(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER.get()));
-            this.kill();
+            if (this.level() instanceof ServerLevel serverLevel) {
+                this.spawnAtLocation(serverLevel, new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER.get()));
+                this.kill(serverLevel);
+            }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;

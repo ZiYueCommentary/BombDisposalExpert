@@ -2,6 +2,9 @@ package ziyue.bde;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -32,7 +35,7 @@ public class BombDisposalExpert
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(MOD_ID);
 
-    public static final DeferredHolder<Block, Block> TNT_NO_GUNPOWDER = BLOCKS.register("tnt_no_gunpowder", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT))
+    public static final DeferredHolder<Block, Block> TNT_NO_GUNPOWDER = BLOCKS.register("tnt_no_gunpowder", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TNT).setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "tnt_no_gunpowder"))))
     {
         @Override
         public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -49,7 +52,7 @@ public class BombDisposalExpert
             return 5;
         }
     });
-    public static final DeferredHolder<Item, BlockItem> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties()));
+    public static final DeferredHolder<Item, BlockItem> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "tnt_no_gunpowder")))));
 
     public BombDisposalExpert(IEventBus bus) {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");

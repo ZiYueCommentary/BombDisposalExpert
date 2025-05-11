@@ -4,12 +4,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 
 @Mixin(Creeper.class)
-public abstract class CreeperMixin extends Monster implements PowerableMob
+public abstract class CreeperMixin extends Monster
 {
     @Shadow public abstract void setTarget(@Nullable LivingEntity p_149691_);
 
@@ -65,7 +65,7 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
 
     @Inject(at = @At("TAIL"), method = "readAdditionalSaveData")
     private void afterReadAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        this.entityData.set(DATA_NEUTRALIZED, tag.getBoolean("neutralized"));
+        this.entityData.set(DATA_NEUTRALIZED, tag.getBoolean("neutralized").orElse(false));
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
@@ -92,7 +92,9 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
         }
         if (player.isHolding(Items.SHEARS)) {
             this.playSound(SoundEvents.SHEEP_SHEAR);
-            this.spawnAtLocation(new ItemStack(Items.GUNPOWDER));
+            if (this.level() instanceof ServerLevel serverLevel) {
+                this.spawnAtLocation(serverLevel, new ItemStack(Items.GUNPOWDER));
+            }
             itemstack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             this.setTarget(null);
             this.entityData.set(DATA_NEUTRALIZED, true);

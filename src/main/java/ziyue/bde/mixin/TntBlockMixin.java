@@ -5,7 +5,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -35,13 +34,13 @@ public abstract class TntBlockMixin extends Block
     }
 
     @Inject(at = @At("HEAD"), method = "useItemOn", cancellable = true)
-    private void beforeOnUse(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
+    private void beforeOnUse(ItemStack p_316149_, BlockState p_316217_, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult p_316532_, CallbackInfoReturnable<InteractionResult> cir) {
         if (player.isHolding(Items.SHEARS)) {
             level.setBlock(pos, BombDisposalExpert.TNT_NO_GUNPOWDER.get().defaultBlockState(), 11);
             level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS);
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, new ItemStack(Items.GUNPOWDER)));
             player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-            cir.setReturnValue(ItemInteractionResult.SUCCESS);
+            cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }
 }
