@@ -21,12 +21,15 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
  * @author ZiYueCommentary
  * @since 1.0.0
  */
 
 @Mod(BombDisposalExpert.MOD_ID)
+@ParametersAreNonnullByDefault
 public class BombDisposalExpert
 {
     public static final String MOD_ID = "bde";
@@ -57,7 +60,7 @@ public class BombDisposalExpert
     public static final TagKey<Item> DEFUSER = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath(MOD_ID,"defuser"));
 
-    public BombDisposalExpert(FMLJavaModLoadingContext context)
+    public BombDisposalExpert(IEventBus bus)
     {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
