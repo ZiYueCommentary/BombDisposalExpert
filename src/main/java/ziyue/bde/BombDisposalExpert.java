@@ -54,7 +54,11 @@ public class BombDisposalExpert
     });
     public static final DeferredHolder<Item, BlockItem> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "tnt_no_gunpowder")))));
 
-    public BombDisposalExpert(IEventBus bus) {
+    public static final TagKey<Item> DEFUSER = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath(MOD_ID,"defuser"));
+
+    public BombDisposalExpert(FMLJavaModLoadingContext context)
+    {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
         BLOCKS.register(bus);
