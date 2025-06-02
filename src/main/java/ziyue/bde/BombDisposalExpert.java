@@ -2,13 +2,15 @@ package ziyue.bde;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
@@ -52,6 +54,9 @@ public class BombDisposalExpert {
         }
     });
     public static final RegistryObject<Item> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties()));
+
+    public static final TagKey<Item> DEFUSER = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath(MOD_ID,"defuser"));
 
     public BombDisposalExpert(FMLJavaModLoadingContext context)
     {
