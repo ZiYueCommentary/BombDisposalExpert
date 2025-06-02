@@ -28,7 +28,7 @@ public abstract class PrimedTntMixin extends Entity implements TraceableEntity
     // No @Inject required.
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
-        if (player.isHolding(Items.SHEARS)) {
+        if (player.getItemInHand(hand).is(BombDisposalExpert.DEFUSER)) {
             player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             this.spawnAtLocation(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER.get()));
             this.kill();
