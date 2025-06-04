@@ -3,7 +3,6 @@ package ziyue.bde.mixin;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -27,7 +26,7 @@ public abstract class TntEntityMixin extends Entity implements Ownable
     // In fact, we don't need @Inject here.
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        if (player.isHolding(Items.SHEARS)) {
+        if (player.getStackInHand(hand).isIn(BombDisposalExpert.DEFUSER)) {
             player.getStackInHand(hand).damage(1, player, getSlotForHand(hand));
             this.dropStack(new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER));
             this.kill();
