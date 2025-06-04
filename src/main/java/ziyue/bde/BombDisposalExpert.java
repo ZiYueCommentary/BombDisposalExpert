@@ -31,7 +31,7 @@ public class BombDisposalExpert implements ModInitializer
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static final Block TNT_NO_GUNPOWDER = register("tnt_no_gunpowder", Block::new, Block.Settings.copy(Blocks.TNT));
-
+    public static final TagKey<Item> DEFUSER = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "defuser"));
     @Override
     public void onInitialize() {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");

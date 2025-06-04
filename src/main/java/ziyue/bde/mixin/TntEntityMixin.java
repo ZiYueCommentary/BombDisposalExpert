@@ -28,7 +28,7 @@ public abstract class TntEntityMixin extends Entity implements Ownable
     // In fact, we don't need @Inject here.
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        if (player.isHolding(Items.SHEARS)) {
+        if (player.getStackInHand(hand).isIn(BombDisposalExpert.DEFUSER)) {
             player.getStackInHand(hand).damage(1, player, getSlotForHand(hand));
             if (this.getWorld() instanceof ServerWorld world) {
                 this.dropStack(world, new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER));
