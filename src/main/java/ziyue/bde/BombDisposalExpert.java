@@ -58,7 +58,7 @@ public class BombDisposalExpert
     public static final DeferredHolder<Item, BlockItem> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties()));
 
     public static final TagKey<Item> DEFUSER = TagKey.create(Registries.ITEM,
-            ResourceLocation.fromNamespaceAndPath(MOD_ID,"defuser"));
+            new ResourceLocation(MOD_ID,"defuser"));
 
     public BombDisposalExpert(IEventBus bus)
     {
