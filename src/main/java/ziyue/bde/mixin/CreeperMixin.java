@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import ziyue.bde.BombDisposalExpert;
 
 /**
  * @author ZiYueCommentary
@@ -90,7 +91,7 @@ public abstract class CreeperMixin extends Monster implements PowerableMob
             cir.setReturnValue(InteractionResult.PASS);
             return;
         }
-        if (player.isHolding(Items.SHEARS)) {
+        if (player.getItemInHand(hand).is(BombDisposalExpert.DEFUSER)) {
             this.playSound(SoundEvents.SHEEP_SHEAR);
             this.spawnAtLocation(new ItemStack(Items.GUNPOWDER));
             itemstack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
