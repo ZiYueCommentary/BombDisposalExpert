@@ -9,7 +9,6 @@ import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import ziyue.bde.BombDisposalExpert;
@@ -31,7 +30,7 @@ public abstract class PrimedTntMixin extends Entity implements TraceableEntity
     // No @Inject required.
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
-        if (player.isHolding(Items.SHEARS)) {
+        if (player.getItemInHand(hand).is(BombDisposalExpert.DEFUSER)) {
             player.getItemInHand(hand).hurtAndBreak(1, player, getSlotForHand(hand));
             if (!this.level().isClientSide()) {
                 this.spawnAtLocation((ServerLevel) this.level(), new ItemStack(BombDisposalExpert.TNT_NO_GUNPOWDER.get()));
