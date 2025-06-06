@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import ziyue.bde.BombDisposalExpert;
 
 /**
  * @author ZiYueCommentary
@@ -95,7 +96,7 @@ public abstract class CreeperEntityMixin extends HostileEntity
             cir.setReturnValue(ActionResult.PASS);
             return;
         }
-        if (itemStack.isOf(Items.SHEARS)) {
+        if (player.getStackInHand(hand).isIn(BombDisposalExpert.DEFUSER)) {
             this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
             if (this.getWorld() instanceof ServerWorld world) {
                 this.dropStack(world, new ItemStack(Items.GUNPOWDER));

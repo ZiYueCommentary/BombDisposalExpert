@@ -6,14 +6,12 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +29,7 @@ public class BombDisposalExpert implements ModInitializer
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static final Block TNT_NO_GUNPOWDER = register("tnt_no_gunpowder", Block::new, Block.Settings.copy(Blocks.TNT));
-
+    public static final TagKey<Item> DEFUSER = TagKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, "defuser"));
     @Override
     public void onInitialize() {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
