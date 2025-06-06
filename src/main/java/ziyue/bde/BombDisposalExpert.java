@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -21,12 +22,15 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
  * @author ZiYueCommentary
  * @since 1.0.0
  */
 
 @Mod(BombDisposalExpert.MOD_ID)
+@ParametersAreNonnullByDefault
 public class BombDisposalExpert
 {
     public static final String MOD_ID = "bde";
@@ -54,7 +58,11 @@ public class BombDisposalExpert
     });
     public static final DeferredHolder<Item, BlockItem> TNT_NO_GUNPOWDER_ITEM = ITEMS.register("tnt_no_gunpowder", () -> new BlockItem(TNT_NO_GUNPOWDER.get(), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "tnt_no_gunpowder")))));
 
-    public BombDisposalExpert(IEventBus bus) {
+    public static final TagKey<Item> DEFUSER = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath(MOD_ID,"defuser"));
+
+    public BombDisposalExpert(IEventBus bus)
+    {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
         BLOCKS.register(bus);
