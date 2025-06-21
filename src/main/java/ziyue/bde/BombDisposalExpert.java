@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -64,14 +64,12 @@ public class BombDisposalExpert
     {
         LOGGER.info("Bomb Disposal Expert! Made by ZiYueCommentary.");
 
-        IEventBus modEventBus = context.getModEventBus();
+        BusGroup modBusGroup = context.getModBusGroup();
 
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
+        BLOCKS.register(modBusGroup);
+        ITEMS.register(modBusGroup);
 
-        MinecraftForge.EVENT_BUS.register(this);
-
-        modEventBus.addListener(this::addCreative);
+        BuildCreativeModeTabContentsEvent.getBus(modBusGroup).addListener(this::addCreative);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {

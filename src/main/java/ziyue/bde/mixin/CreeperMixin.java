@@ -16,6 +16,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -69,13 +71,13 @@ public abstract class CreeperMixin extends Monster
     }
 
     @Inject(at = @At("TAIL"), method = "addAdditionalSaveData")
-    private void afterAddAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    private void afterAddAdditionalSaveData(ValueOutput tag, CallbackInfo ci) {
         tag.putBoolean("neutralized", this.entityData.get(DATA_NEUTRALIZED));
     }
 
     @Inject(at = @At("TAIL"), method = "readAdditionalSaveData")
-    private void afterReadAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        this.entityData.set(DATA_NEUTRALIZED, tag.getBoolean("neutralized").orElse(false));
+    private void afterReadAdditionalSaveData(ValueInput tag, CallbackInfo ci) {
+        this.entityData.set(DATA_NEUTRALIZED, tag.getBooleanOr("neutralized", false));
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
