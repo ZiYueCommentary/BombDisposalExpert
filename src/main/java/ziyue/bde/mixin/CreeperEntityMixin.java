@@ -13,6 +13,8 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -64,14 +66,14 @@ public abstract class CreeperEntityMixin extends HostileEntity
         builder.add(NEUTRALIZED, false);
     }
 
-    @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
-    private void afterWriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putBoolean("neutralized", this.dataTracker.get(NEUTRALIZED));
+    @Inject(at = @At("TAIL"), method = "writeCustomData")
+    private void afterWriteCustomData(WriteView view, CallbackInfo ci) {
+        view.putBoolean("neutralized", this.dataTracker.get(NEUTRALIZED));
     }
 
-    @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt")
-    private void afterReadCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        this.dataTracker.set(NEUTRALIZED, nbt.getBoolean("neutralized").orElse(false));
+    @Inject(at = @At("TAIL"), method = "readCustomData")
+    private void afterReadCustomData(ReadView view, CallbackInfo ci) {
+        this.dataTracker.set(NEUTRALIZED, view.getBoolean("neutralized", false));
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
