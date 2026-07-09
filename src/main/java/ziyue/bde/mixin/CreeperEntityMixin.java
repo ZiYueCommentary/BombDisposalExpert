@@ -13,8 +13,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -66,14 +64,14 @@ public abstract class CreeperEntityMixin extends HostileEntity
         builder.add(NEUTRALIZED, false);
     }
 
-    @Inject(at = @At("TAIL"), method = "writeCustomData")
-    private void afterWriteCustomData(WriteView view, CallbackInfo ci) {
-        view.putBoolean("neutralized", this.dataTracker.get(NEUTRALIZED));
+    @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
+    private void afterWriteCustomData(NbtCompound nbt, CallbackInfo ci) {
+        nbt.putBoolean("neutralized", this.dataTracker.get(NEUTRALIZED));
     }
 
-    @Inject(at = @At("TAIL"), method = "readCustomData")
-    private void afterReadCustomData(ReadView view, CallbackInfo ci) {
-        this.dataTracker.set(NEUTRALIZED, view.getBoolean("neutralized", false));
+    @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt")
+    private void afterReadCustomData(NbtCompound nbt, CallbackInfo ci) {
+        this.dataTracker.set(NEUTRALIZED, nbt.getBoolean("neutralized"));
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
@@ -108,7 +106,8 @@ public abstract class CreeperEntityMixin extends HostileEntity
             this.dataTracker.set(NEUTRALIZED, true);
             this.dataTracker.set(FUSE_SPEED, -1);
             this.dataTracker.set(IGNITED, false);
-            this.lastFuseTime = this.currentFuseTime = 0;
+            this.lastFuseTime = 0;
+            this.currentFuseTime = 0;
             cir.setReturnValue(ActionResult.SUCCESS);
         }
     }
