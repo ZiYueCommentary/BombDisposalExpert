@@ -35,17 +35,26 @@ import ziyue.bde.BombDisposalExpert;
 @Mixin(Creeper.class)
 public abstract class CreeperMixin extends Monster
 {
-    @Shadow public abstract void setTarget(@Nullable LivingEntity p_149691_);
+    @Shadow
+    public abstract void setTarget(@Nullable LivingEntity p_149691_);
 
-    @Shadow @Final private static EntityDataAccessor<Integer> DATA_SWELL_DIR;
+    @Shadow
+    @Final
+    private static EntityDataAccessor<Integer> DATA_SWELL_DIR;
 
-    @Shadow @Final private static EntityDataAccessor<Boolean> DATA_IS_POWERED;
+    @Shadow
+    @Final
+    private static EntityDataAccessor<Boolean> DATA_IS_POWERED;
 
-    @Shadow @Final private static EntityDataAccessor<Boolean> DATA_IS_IGNITED;
+    @Shadow
+    @Final
+    private static EntityDataAccessor<Boolean> DATA_IS_IGNITED;
 
-    @Shadow private int oldSwell;
+    @Shadow
+    private int oldSwell;
 
-    @Shadow private int swell;
+    @Shadow
+    private int swell;
 
     protected CreeperMixin(EntityType<? extends Monster> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
@@ -66,7 +75,7 @@ public abstract class CreeperMixin extends Monster
 
     @Inject(at = @At("TAIL"), method = "readAdditionalSaveData")
     private void afterReadAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        this.entityData.set(DATA_NEUTRALIZED, tag.getBoolean("neutralized").orElse(false));
+        this.entityData.set(DATA_NEUTRALIZED, tag.getBoolean("neutralized"));
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
@@ -102,7 +111,8 @@ public abstract class CreeperMixin extends Monster
             this.entityData.set(DATA_SWELL_DIR, -1);
             this.entityData.set(DATA_IS_POWERED, false);
             this.entityData.set(DATA_IS_IGNITED, false);
-            this.oldSwell = this.swell = 0;
+            this.oldSwell = 0;
+            this.swell = 0;
             cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }
