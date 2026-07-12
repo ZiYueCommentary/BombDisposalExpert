@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "bde",
+	"version": "${version}",
+	"name": "Bomb Disposal Expert",
+	"description": "A small mod that allows you bomb disposal.",
+	"authors": [
+		"ZiYueCommentary"
+	],
+	"contact": {
+        "homepage": "https://modrinth.com/project/bde",
+        "sources": "https://github.com/ZiYueCommentary/BombDisposalExpert",
+        "issues": "https://github.com/ZiYueCommentary/BombDisposalExpert/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/bde/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ziyue.bde.BombDisposalExpert"
+		]
+	},
+	"mixins": [
+		"bde.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

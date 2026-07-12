@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "redstone",
+	"pattern": [
+		"x x",
+		" y ",
+		"x x"
+	],
+	"key": {
+		"x": "minecraft:gunpowder",
+		"y": "bde:tnt_no_gunpowder"
+	},
+	"result": {
+		"id": "minecraft:tnt",
+		"count": 1
+	}
+}

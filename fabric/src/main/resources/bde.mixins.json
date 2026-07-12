@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "package": "ziyue.bde.mixin",
+    "compatibilityLevel": "JAVA_25",
+    "mixins": [
+        "CreeperMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+	}
+}
